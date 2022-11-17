@@ -5,5 +5,8 @@
   "item.paranoiamod.lithium" : "Raw Lithium",
 
 
-  "block.paranoiamod.deepslate_lithium_ore": "Deepslate Lithium Ore"
+  "block.paranoiamod.deepslate_lithium_ore": "Deepslate Lithium Ore",
+
+
+  "block.paranoiamod.mortar_and_pestle": "Mortar and Pestle"
 }

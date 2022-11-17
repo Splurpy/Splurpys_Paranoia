@@ -14,6 +14,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.splurpy.paranoiamod.ParanoiaMod;
+import net.splurpy.paranoiamod.block.custom.MortarAndPestleBlock;
 import net.splurpy.paranoiamod.item.ModCreativeModeTab;
 import net.splurpy.paranoiamod.item.ModItems;
 
@@ -32,7 +33,11 @@ public class ModBlocks {
                     .explosionResistance(6),
                     UniformInt.of(0,5)), ModCreativeModeTab.TAB_PARANOIA);
 
-
+    public static final RegistryObject<Block> MORTAR_AND_PESTLE =
+            registerBlock("mortar_and_pestle",
+                    () -> new MortarAndPestleBlock(BlockBehaviour.Properties.of(Material.DECORATION)
+                            .strength(3f)
+                            .sound(SoundType.WOOD).noOcclusion()), ModCreativeModeTab.TAB_PARANOIA);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> result = BLOCKS.register(name, block);
