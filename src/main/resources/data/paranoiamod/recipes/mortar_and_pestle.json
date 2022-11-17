@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "SMS",
+    "# #"
+  ],
+  "key": {
+    "P": {
+      "item": "paranoiamod:pestle"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "M": {
+      "item": "paranoiamod:mortar"
+    },
+    "#": {
+      "item": "minecraft:stone_slab"
+    }
+  },
+  "result": {
+    "item": "paranoiamod:mortar_and_pestle",
+    "count": 1
+  }
+}

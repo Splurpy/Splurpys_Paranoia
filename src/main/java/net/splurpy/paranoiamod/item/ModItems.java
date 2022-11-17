@@ -8,6 +8,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.splurpy.paranoiamod.ParanoiaMod;
 
+import java.rmi.registry.Registry;
+
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS =
@@ -15,6 +17,15 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> LITHIUM = ITEMS.register("lithium",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+
+    public static final RegistryObject<Item> MORTAR = ITEMS.register("mortar",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+
+    public static final RegistryObject<Item> PESTLE = ITEMS.register("pestle",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+
+    public static final RegistryObject<Item> POWDERED_LITHIUM = ITEMS.register("powdered_lithium",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
 
 
