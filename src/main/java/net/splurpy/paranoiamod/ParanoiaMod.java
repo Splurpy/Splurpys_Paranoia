@@ -1,6 +1,7 @@
 package net.splurpy.paranoiamod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -10,7 +11,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.splurpy.paranoiamod.block.ModBlocks;
+import net.splurpy.paranoiamod.block.entity.ModBlockEntities;
 import net.splurpy.paranoiamod.item.ModItems;
+import net.splurpy.paranoiamod.screen.ModMenuTypes;
+import net.splurpy.paranoiamod.screen.MortarAndPestleScreen;
 import net.splurpy.paranoiamod.world.feature.ModConfiguredFeatures;
 import net.splurpy.paranoiamod.world.feature.ModPlacedFeatures;
 import org.slf4j.Logger;
@@ -35,6 +39,10 @@ public class ParanoiaMod
         ModConfiguredFeatures.register(modEventBus);
         ModPlacedFeatures.register(modEventBus);
 
+        ModBlockEntities.register(modEventBus);
+
+        ModMenuTypes.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -55,7 +63,7 @@ public class ParanoiaMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            MenuScreens.register(ModMenuTypes.MORTAR_AND_PESTLE_MENU.get(), MortarAndPestleScreen::new);
         }
     }
 }
