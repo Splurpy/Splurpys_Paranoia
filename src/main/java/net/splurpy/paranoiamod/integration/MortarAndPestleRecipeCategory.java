@@ -25,7 +25,7 @@ public class MortarAndPestleRecipeCategory implements IRecipeCategory<MortarAndP
 
 
     public MortarAndPestleRecipeCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 85);
+        this.background = helper.createDrawable(TEXTURE, 0, 0, 176, 80);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MORTAR_AND_PESTLE.get()));
     }
 
