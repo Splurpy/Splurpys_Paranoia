@@ -1,6 +1,5 @@
 package net.splurpy.paranoiamod.block.entity;
 
-import com.mojang.serialization.Decoder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -21,10 +20,12 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.splurpy.paranoiamod.item.ModItems;
+import net.splurpy.paranoiamod.recipe.MortarAndPestleRecipe;
 import net.splurpy.paranoiamod.screen.MortarAndPestleMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class MortarAndPestleBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -148,27 +149,37 @@ public class MortarAndPestleBlockEntity extends BlockEntity implements MenuProvi
     }
 
     private static void craftItem(MortarAndPestleBlockEntity pEntity) {
+        Level level = pEntity.level;
+        SimpleContainer inventory = new SimpleContainer(pEntity.itemHandler.getSlots());
+        for (int slot = 0; slot < pEntity.itemHandler.getSlots(); slot++) {
+            inventory.setItem(slot, pEntity.itemHandler.getStackInSlot(slot));
+        }
+
+        Optional<MortarAndPestleRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(MortarAndPestleRecipe.Type.INSTANCE, inventory, level);
+
+
         if (hasRecipe(pEntity)) {
             pEntity.itemHandler.extractItem(0, 1, false);
-            pEntity.itemHandler.setStackInSlot(1, new ItemStack(ModItems.POWDERED_LITHIUM.get(), // Changed to powdered lithium
-                    pEntity.itemHandler.getStackInSlot(1).getCount() + 1));
+            pEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(),
+                    pEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
 
             pEntity.resetProgress();
         }
     }
 
     private static boolean hasRecipe(MortarAndPestleBlockEntity entity) {
+        Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
         for (int slot = 0; slot < entity.itemHandler.getSlots(); slot++) {
             inventory.setItem(slot, entity.itemHandler.getStackInSlot(slot));
         }
 
-        boolean hasRawOreInSlot = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.LITHIUM.get();
+        Optional<MortarAndPestleRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(MortarAndPestleRecipe.Type.INSTANCE, inventory, level);
 
-        if (hasRawOreInSlot) System.out.println("[DEBUG] Ore in slot 1: " + hasRawOreInSlot);
-
-        return hasRawOreInSlot && canInsertAmountIntoOutputSlot(inventory) &&
-                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.POWDERED_LITHIUM.get(), 1));
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) &&
+                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {

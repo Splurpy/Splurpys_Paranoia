@@ -1,0 +1,12 @@
+{
+    "type": "paranoiamod:mortar_and_pestle",
+    "ingredients": [
+        {
+            "item": "minecraft:bone"
+        }
+    ],
+    "output": {
+        "item": "paranoiamod:gelatin_powder",
+        "count": 3
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "type": "paranoiamod:mortar_and_pestle",
+    "ingredients": [
+        {
+            "item": "paranoiamod:lithium"
+        }
+    ],
+    "output": {
+        "item": "paranoiamod:powdered_lithium",
+        "count": 1
+    }
+}

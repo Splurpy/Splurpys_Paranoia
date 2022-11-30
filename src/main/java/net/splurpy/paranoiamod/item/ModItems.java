@@ -28,6 +28,9 @@ public class ModItems {
     public static final RegistryObject<Item> POWDERED_LITHIUM = ITEMS.register("powdered_lithium",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
 
+    public static final RegistryObject<Item> GELATIN_POWDER = ITEMS.register("gelatin_powder",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+
 
     public static void register(IEventBus eventbus) {
         ITEMS.register(eventbus);
