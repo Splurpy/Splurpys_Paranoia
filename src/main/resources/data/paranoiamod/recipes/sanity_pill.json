@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "paranoiamod:pill_capsule"
+    },
+    {
+      "item": "paranoiamod:powdered_lithium"
+    }
+  ],
+  "result": {
+    "item": "paranoiamod:sanity_pill",
+    "count": 1
+  }
+}

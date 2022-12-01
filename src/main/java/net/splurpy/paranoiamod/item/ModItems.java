@@ -31,6 +31,12 @@ public class ModItems {
     public static final RegistryObject<Item> GELATIN_POWDER = ITEMS.register("gelatin_powder",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
 
+    public static final RegistryObject<Item> PILL_CAPSULE = ITEMS.register("pill_capsule",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+
+    public static final RegistryObject<Item> SANITY_PILL = ITEMS.register("sanity_pill",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+
 
     public static void register(IEventBus eventbus) {
         ITEMS.register(eventbus);
