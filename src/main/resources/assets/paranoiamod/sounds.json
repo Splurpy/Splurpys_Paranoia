@@ -1,0 +1,7 @@
+{
+  "swallow_pill": {
+    "category": "player",
+    "subtitle":  "sounds.paranoiamod.swallow_pill",
+    "sounds": ["paranoiamod:swallow"]
+  }
+}

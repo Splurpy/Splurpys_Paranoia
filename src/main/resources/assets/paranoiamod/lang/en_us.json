@@ -14,5 +14,7 @@
   "block.paranoiamod.deepslate_lithium_ore": "Deepslate Lithium Ore",
 
 
-  "block.paranoiamod.mortar_and_pestle": "Mortar and Pestle"
+  "block.paranoiamod.mortar_and_pestle": "Mortar and Pestle",
+
+  "sounds.paranoiamod.swallow_pill": "Swallowed a pill"
 }

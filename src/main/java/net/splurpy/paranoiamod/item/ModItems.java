@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.splurpy.paranoiamod.ParanoiaMod;
+import net.splurpy.paranoiamod.item.custom.SanityPill;
 
 import java.rmi.registry.Registry;
 
@@ -35,7 +36,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
 
     public static final RegistryObject<Item> SANITY_PILL = ITEMS.register("sanity_pill",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA)));
+            () -> new SanityPill(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA).stacksTo(16)));
 
 
     public static void register(IEventBus eventbus) {

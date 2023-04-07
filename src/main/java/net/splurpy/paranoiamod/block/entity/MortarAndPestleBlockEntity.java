@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -165,6 +167,8 @@ public class MortarAndPestleBlockEntity extends BlockEntity implements MenuProvi
                     pEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
 
             pEntity.resetProgress();
+            level.playSound(null, pEntity.getBlockPos(), SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS,
+                    0.05f, level.random.nextFloat() * 0.1f + 0.9f);
         }
     }
 
