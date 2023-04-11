@@ -14,6 +14,8 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> SWALLOW_PILL =
             registerSoundEvent("swallow_pill");
+    public static final RegistryObject<SoundEvent> KNOCKING_AMBIENT =
+            registerSoundEvent("knock_ambient");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(ParanoiaMod.MOD_ID, name)));

@@ -7,6 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.splurpy.paranoiamod.ParanoiaMod;
+import net.splurpy.paranoiamod.networking.packet.SanityDataSyncS2CPacket;
 import net.splurpy.paranoiamod.networking.packet.SwallowPillC2SPacket;
 
 public class ModMessages {
@@ -30,6 +31,12 @@ public class ModMessages {
                 .decoder(SwallowPillC2SPacket::new)
                 .encoder(SwallowPillC2SPacket::toBytes)
                 .consumerMainThread(SwallowPillC2SPacket::handle)
+                .add();
+        // Sync Sanity data between server and client
+        net.messageBuilder(SanityDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SanityDataSyncS2CPacket::new)
+                .encoder(SanityDataSyncS2CPacket::toBytes)
+                .consumerMainThread(SanityDataSyncS2CPacket::handle)
                 .add();
     }
 

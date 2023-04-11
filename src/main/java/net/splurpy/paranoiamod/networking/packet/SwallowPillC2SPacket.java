@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
+import net.splurpy.paranoiamod.networking.ModMessages;
 import net.splurpy.paranoiamod.sanity.PlayerSanityProvider;
 import net.splurpy.paranoiamod.sound.ModSounds;
 
@@ -42,13 +43,16 @@ public class SwallowPillC2SPacket {
             level.playSound(null, player.getOnPos(), ModSounds.SWALLOW_PILL.get(), SoundSource.PLAYERS,
                     1.0f, level.random.nextFloat() * 0.1f + 0.9f);
 
-            // Consume the pill from the itemStack
-            itemStack.setCount(itemStack.getCount() - 1);
-            player.setItemInHand(hand, itemStack);
+            if (!player.isCreative()) {
+                // Consume the pill from the itemStack if not in Creative Mode
+                itemStack.setCount(itemStack.getCount() - 1);
+                player.setItemInHand(hand, itemStack);
+            }
 
             // Alter Sanity Accordingly
             player.getCapability(PlayerSanityProvider.PLAYER_SANITY).ifPresent(sanity -> {
                 sanity.incSanity(10);
+                ModMessages.sendToPlayer(new SanityDataSyncS2CPacket(sanity.getSanity()), player);
                 // For testing, output current Sanity
                 player.sendSystemMessage(Component.literal("Current Sanity: " + sanity.getSanity()));
             });

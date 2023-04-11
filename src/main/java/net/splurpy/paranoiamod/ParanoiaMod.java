@@ -12,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.splurpy.paranoiamod.block.ModBlocks;
 import net.splurpy.paranoiamod.block.entity.ModBlockEntities;
+import net.splurpy.paranoiamod.effect.ModEffects;
 import net.splurpy.paranoiamod.item.ModItems;
 import net.splurpy.paranoiamod.networking.ModMessages;
 import net.splurpy.paranoiamod.recipe.ModRecipes;
@@ -49,6 +50,8 @@ public class ParanoiaMod
         ModRecipes.register(modEventBus);
 
         ModSounds.register(modEventBus);
+
+        ModEffects.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

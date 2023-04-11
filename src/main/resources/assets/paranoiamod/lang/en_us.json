@@ -16,5 +16,8 @@
 
   "block.paranoiamod.mortar_and_pestle": "Mortar and Pestle",
 
-  "sounds.paranoiamod.swallow_pill": "Swallowed a pill"
+  "effect.paranoiamod.insane": "Broken",
+
+  "sounds.paranoiamod.swallow_pill": "Swallowed a pill",
+  "sounds.paranoiamod.knock_ambient": "Mysterious knocking"
 }

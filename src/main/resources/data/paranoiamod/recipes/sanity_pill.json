@@ -5,7 +5,8 @@
       "item": "paranoiamod:pill_capsule"
     },
     {
-      "item": "paranoiamod:powdered_lithium"
+      "item": "paranoiamod:powdered_lithium",
+      "count": 2
     }
   ],
   "result": {

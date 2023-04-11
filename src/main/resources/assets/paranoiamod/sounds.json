@@ -3,5 +3,11 @@
     "category": "player",
     "subtitle":  "sounds.paranoiamod.swallow_pill",
     "sounds": ["paranoiamod:swallow"]
+  },
+
+  "knock_ambient" : {
+    "category": "ambient",
+    "subtitle": "sounds.paranoiamod.knock_ambient",
+    "sounds": ["paranoiamod:knock1", "paranoiamod:knock2"]
   }
 }

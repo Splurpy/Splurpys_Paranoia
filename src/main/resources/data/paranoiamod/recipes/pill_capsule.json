@@ -2,7 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "paranoiamod:gelatin_powder"
+      "item": "paranoiamod:gelatin_powder",
+      "count": 3
     },
     {
       "item": "minecraft:water_bucket"
