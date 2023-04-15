@@ -1,5 +1,6 @@
 package net.splurpy.paranoiamod.event;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.data.worldgen.DimensionTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -44,12 +46,16 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.splurpy.paranoiamod.ParanoiaMod;
 import net.splurpy.paranoiamod.client.ClientSanityData;
 import net.splurpy.paranoiamod.effect.InsaneEffect;
 import net.splurpy.paranoiamod.effect.ModEffects;
 import net.splurpy.paranoiamod.networking.ModMessages;
 import net.splurpy.paranoiamod.networking.packet.SanityDataSyncS2CPacket;
+import net.splurpy.paranoiamod.particle.ModParticles;
+import net.splurpy.paranoiamod.particle.custom.LithiumFlameParticles;
 import net.splurpy.paranoiamod.sanity.PlayerSanity;
 import net.splurpy.paranoiamod.sanity.PlayerSanityProvider;
 import net.splurpy.paranoiamod.sanity.SanityEvents;
@@ -102,11 +108,19 @@ public class ModEvents {
                     }
                     else {
                         if (((event.player.level.getBrightness(LightLayer.SKY, event.player.blockPosition())) +
-                                (event.player.level.getBrightness(LightLayer.BLOCK, event.player.blockPosition())) / 2) <= 2) {
+                                (event.player.level.getBrightness(LightLayer.BLOCK, event.player.blockPosition())) / 2) <= 2 && !event.player.hasEffect(MobEffects.NIGHT_VISION)) {
                             sanity.decSanity(1);
                             event.player.sendSystemMessage(Component.literal("Sanity has decreased by 1 - DARKNESS"));
                             ModMessages.sendToPlayer(new SanityDataSyncS2CPacket(sanity.getSanity()), (ServerPlayer) event.player);
                         }
+                    }
+                }
+
+                if(sanity.getSanity() > 0 && event.player.getRandom().nextFloat() < 0.0005f) {
+                    if (SanityUtil.isNearPurgingTorch(event.player)) {
+                        sanity.incSanity(2);
+                        event.player.sendSystemMessage(Component.literal("Sanity has increased by 2 - PURGING TORCH"));
+                        ModMessages.sendToPlayer(new SanityDataSyncS2CPacket(sanity.getSanity()), (ServerPlayer) event.player);
                     }
                 }
 
@@ -191,7 +205,7 @@ public class ModEvents {
         if (event.getEntity() instanceof Player player) {
             if (event.getSource().equals(DamageSource.ON_FIRE) || event.getSource().equals(DamageSource.DROWN) ||
                     event.getSource().equals(DamageSource.STARVE) || event.getSource().equals(DamageSource.WITHER) || event.getSource().equals(DamageSource.LAVA) ||
-                    event.getSource().equals(DamageSource.LIGHTNING_BOLT)) {
+                    event.getSource().equals(DamageSource.LIGHTNING_BOLT) || event.getSource().equals(DamageSource.IN_FIRE)) {
                 player.getCapability(PlayerSanityProvider.PLAYER_SANITY).ifPresent(sanity -> {
                     sanity.decSanity(2);
                     player.sendSystemMessage(Component.literal("Sanity has decreased by 2 - DISTURBING DAMAGE"));
@@ -259,4 +273,13 @@ public class ModEvents {
             }
         }
     }
+
+    /*===============EventBus Events================*/
+    /*
+    @SubscribeEvent
+    public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
+        event.register(ModParticles.LITHIUM_FLAME_PARTICLES.get(),
+                LithiumFlameParticles.Provider::new);
+    }
+     */
 }

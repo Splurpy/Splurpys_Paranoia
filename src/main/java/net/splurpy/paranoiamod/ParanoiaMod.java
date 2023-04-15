@@ -2,7 +2,11 @@ package net.splurpy.paranoiamod;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.RenderTypeGroup;
+import net.minecraftforge.client.model.renderable.ITextureRenderTypeLookup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,6 +19,7 @@ import net.splurpy.paranoiamod.block.entity.ModBlockEntities;
 import net.splurpy.paranoiamod.effect.ModEffects;
 import net.splurpy.paranoiamod.item.ModItems;
 import net.splurpy.paranoiamod.networking.ModMessages;
+import net.splurpy.paranoiamod.particle.ModParticles;
 import net.splurpy.paranoiamod.recipe.ModRecipes;
 import net.splurpy.paranoiamod.screen.ModMenuTypes;
 import net.splurpy.paranoiamod.screen.MortarAndPestleScreen;
@@ -37,8 +42,8 @@ public class ParanoiaMod
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
 
         ModConfiguredFeatures.register(modEventBus);
         ModPlacedFeatures.register(modEventBus);
@@ -50,6 +55,8 @@ public class ParanoiaMod
         ModRecipes.register(modEventBus);
 
         ModSounds.register(modEventBus);
+
+        ModParticles.register(modEventBus);
 
         ModEffects.register(modEventBus);
 
@@ -78,6 +85,8 @@ public class ParanoiaMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             MenuScreens.register(ModMenuTypes.MORTAR_AND_PESTLE_MENU.get(), MortarAndPestleScreen::new);
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.LITHIUM_TORCH.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.LITHIUM_WALL_TORCH.get(), RenderType.cutout());
         }
     }
 }

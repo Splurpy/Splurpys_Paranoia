@@ -2,11 +2,14 @@ package net.splurpy.paranoiamod.item;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.splurpy.paranoiamod.ParanoiaMod;
+import net.splurpy.paranoiamod.block.ModBlocks;
 import net.splurpy.paranoiamod.item.custom.SanityPill;
 
 import java.rmi.registry.Registry;
@@ -37,6 +40,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> SANITY_PILL = ITEMS.register("sanity_pill",
             () -> new SanityPill(new Item.Properties().tab(ModCreativeModeTab.TAB_PARANOIA).stacksTo(16)));
+
+    public static final RegistryObject<StandingAndWallBlockItem> LITHIUM_TORCH =
+            ITEMS.register("lithium_torch_sawbi", () -> new StandingAndWallBlockItem(ModBlocks.LITHIUM_TORCH.get(), ModBlocks.LITHIUM_WALL_TORCH.get(), (new Item.Properties()).tab(ModCreativeModeTab.TAB_PARANOIA)));
 
 
     public static void register(IEventBus eventbus) {

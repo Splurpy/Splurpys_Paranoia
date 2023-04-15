@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_torch",
+  "textures": {
+    "torch": "paranoiamod:block/lithium_torch"
+  }
+}

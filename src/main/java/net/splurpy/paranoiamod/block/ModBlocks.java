@@ -1,12 +1,11 @@
 package net.splurpy.paranoiamod.block;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,6 +14,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.splurpy.paranoiamod.ParanoiaMod;
 import net.splurpy.paranoiamod.block.custom.MortarAndPestleBlock;
+import net.splurpy.paranoiamod.block.torch.LithiumTorchBlock;
+import net.splurpy.paranoiamod.block.torch.LithiumWallTorchBlock;
 import net.splurpy.paranoiamod.item.ModCreativeModeTab;
 import net.splurpy.paranoiamod.item.ModItems;
 
@@ -39,9 +40,27 @@ public class ModBlocks {
                             .strength(3f)
                             .sound(SoundType.WOOD).noOcclusion()), ModCreativeModeTab.TAB_PARANOIA);
 
+    public static final RegistryObject<LithiumTorchBlock> LITHIUM_TORCH =
+            registerBlockNoItem("lithium_torch",
+                    () -> new LithiumTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().instabreak().lightLevel((light) -> {
+                        return 15;
+                    }).sound(SoundType.BONE_BLOCK), ParticleTypes.FLAME));
+
+    public static final RegistryObject<LithiumWallTorchBlock> LITHIUM_WALL_TORCH =
+            registerBlockNoItem("lithium_wall_torch",
+                    () -> new LithiumWallTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().instabreak().lightLevel((light) -> {
+                        return 15;
+                    }).sound(SoundType.BONE_BLOCK).dropsLike(LITHIUM_TORCH.get()), ParticleTypes.FLAME));
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> result = BLOCKS.register(name, block);
         registerBlockItem(name, result, tab);
+
+        return result;
+    }
+
+    private static <T extends Block> RegistryObject<T> registerBlockNoItem(String name, Supplier<T> block) {
+        RegistryObject<T> result = BLOCKS.register(name, block);
 
         return result;
     }

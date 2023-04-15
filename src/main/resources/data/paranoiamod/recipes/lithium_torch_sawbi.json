@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "&"
+  ],
+  "key": {
+    "#": {
+      "item": "paranoiamod:lithium"
+    },
+    "&": {
+      "item": "minecraft:bone"
+    }
+  },
+  "result": {
+    "item": "paranoiamod:lithium_torch_sawbi",
+    "count": 2
+  }
+}
